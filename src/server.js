@@ -7,10 +7,23 @@ const mongoose = require('mongoose');
 const cors = require ('cors');
 const errorHandler = require ('./middleware/500.js');
 const pageNotFoundHandler = require ('./middleware/404.js');
+// const bodyParser = require ('body-parser');
+
+const multer = require('multer');
+const multerParse = multer();
+
+app.use(multerParse.none());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const router = require('./auth/router.js');
 app.use(cors());
+
+// const options = {inflate :true , strict : false , extended: true};
+// app.use(bodyParser.json([options]));
+// app.use(bodyParser.urlencoded({
+  // extended: true,
+// }));
+
 app.use ('/api/v1/' , router);
 
 app.get ('/', homePageHandler);
